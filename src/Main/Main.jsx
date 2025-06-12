@@ -60,7 +60,7 @@ const App = () => {
   }, []);
 
   const onClickReset = () => {
-    let q = prompt("Sure you want to reset? Y/N: ");
+    let q = prompt("Sure you want to reset? Y/N: ", "Y");
     if (!q || q.toLowerCase() !== "y") return;
     clearTimer(getDeadTime(initSecs));
     setIsRunning(true);
