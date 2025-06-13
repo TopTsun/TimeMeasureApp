@@ -14,7 +14,7 @@ const App = () => {
   const intervalRef = useRef(null);
   const [timer, setTimer] = useState(localStorage.getItem("time") || initTime);
   const [isRunning, setIsRunning] = useState(false);
-  const [days, setDays] = useState(localStorage.getItem("days") || 0);
+  const [days, setDays] = useState(+localStorage.getItem("days") || 0);
 
   const getTimeRemaining = (endTime) => {
     const total = Date.parse(endTime) - Date.parse(new Date());
@@ -85,15 +85,18 @@ const App = () => {
 
   const addDays = () => {
     setDays((prev) => {
-      return prev == 78 ? 78 : (prev += 1);
+      const newDays = prev === 80 ? 80 : prev + 1;
+      localStorage.setItem("days", +newDays);
+      return newDays;
     });
-    localStorage.setItem("days", days == 78 ? 78 : days + 1);
   };
+
   const removeDays = () => {
     setDays((prev) => {
-      return prev == 0 ? 0 : (prev -= 1);
+      const newDays = prev === 0 ? 0 : prev - 1;
+      localStorage.setItem("days", +newDays);
+      return newDays;
     });
-    localStorage.setItem("days", days == 0 ? 0 : days - 1);
   };
 
   return (
@@ -103,7 +106,7 @@ const App = () => {
         <div className="daysCounter">
           <h6>
             {days <= 9 ? "0" : ""}
-            {days} / 78
+            {days} / 80
           </h6>
           <div className="imgs">
             <img src="./minus.png" alt="minus" onClick={removeDays} />
