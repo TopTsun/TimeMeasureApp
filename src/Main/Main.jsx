@@ -14,6 +14,7 @@ const App = () => {
   const intervalRef = useRef(null);
   const [timer, setTimer] = useState(localStorage.getItem("time") || initTime);
   const [isRunning, setIsRunning] = useState(false);
+  const [days, setDays] = useState(localStorage.getItem("days") || 0);
 
   const getTimeRemaining = (endTime) => {
     const total = Date.parse(endTime) - Date.parse(new Date());
@@ -82,10 +83,33 @@ const App = () => {
     toast.success("Saved");
   };
 
+  const addDays = () => {
+    setDays((prev) => {
+      return prev == 78 ? 78 : (prev += 1);
+    });
+    localStorage.setItem("days", days + 1);
+  };
+  const removeDays = () => {
+    setDays((prev) => {
+      return prev == 0 ? 0 : (prev -= 1);
+    });
+    localStorage.setItem("days", days - 1);
+  };
+
   return (
     <>
       <div className="main">
         <h2>{timer}</h2>
+        <div className="daysCounter">
+          <h6>
+            {days <= 9 ? "0" : ""}
+            {days} / 78
+          </h6>
+          <div className="imgs">
+            <img src="./minus.png" alt="minus" onClick={removeDays} />
+            <img src="./plus.png" alt="plus" onClick={addDays} />
+          </div>
+        </div>
       </div>
       <div className="controlsPanel">
         <button onClick={onClickStart}>{isRunning ? "Stop" : "Start"}</button>

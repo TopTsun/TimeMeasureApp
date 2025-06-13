@@ -9,6 +9,31 @@
   color: black;
   font-size: 150px;
   font-weight: 300;
+  flex-direction: column;
+  overflow-y: hidden;
+
+  .daysCounter {
+    position: absolute;
+    top: 55%;
+    left: 75%;
+    color: white;
+    height: 10px;
+
+    .imgs {
+      position: absolute;
+      left: 30px;
+      flex-direction: row;
+      display: flex;
+      gap: 160px;
+
+      img {
+        border-radius: 50%;
+        background-color: #526d82;
+        padding: 20px;
+        cursor: pointer;
+      }
+    }
+  }
 }
 .controlsPanel {
   background-color: #dde6ed;
