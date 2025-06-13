@@ -87,13 +87,13 @@ const App = () => {
     setDays((prev) => {
       return prev == 78 ? 78 : (prev += 1);
     });
-    localStorage.setItem("days", days + 1);
+    localStorage.setItem("days", days == 78 ? 78 : days + 1);
   };
   const removeDays = () => {
     setDays((prev) => {
       return prev == 0 ? 0 : (prev -= 1);
     });
-    localStorage.setItem("days", days - 1);
+    localStorage.setItem("days", days == 0 ? 0 : days - 1);
   };
 
   return (
