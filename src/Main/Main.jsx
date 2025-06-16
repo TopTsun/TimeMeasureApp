@@ -15,6 +15,9 @@ const App = () => {
   const [timer, setTimer] = useState(localStorage.getItem("time") || initTime);
   const [isRunning, setIsRunning] = useState(false);
   const [days, setDays] = useState(+localStorage.getItem("days") || 0);
+  const [totalDays, setTotalDays] = useState(
+    +localStorage.getItem("totalDays") || 0
+  );
 
   const getTimeRemaining = (endTime) => {
     const total = Date.parse(endTime) - Date.parse(new Date());
@@ -72,21 +75,29 @@ const App = () => {
     if (isRunning) {
       clearInterval(intervalRef.current);
       setIsRunning(false);
+      toast.success("Stoped!");
     } else {
       clearTimer(getDeadTime(getSecs(timer)));
       setIsRunning(true);
+      toast.success("Started!");
     }
   };
 
   const onClickSave = () => {
     localStorage.setItem("time", timer);
-    toast.success("Saved");
+    toast.success("Time saved successfully!");
   };
 
   const addDays = () => {
     setDays((prev) => {
-      const newDays = prev === 80 ? 80 : prev + 1;
+      const newDays = prev + 1;
       localStorage.setItem("days", +newDays);
+      return newDays;
+    });
+
+    setTotalDays((prev) => {
+      const newDays = prev + 1;
+      localStorage.setItem("totalDays", +newDays);
       return newDays;
     });
   };
@@ -106,7 +117,8 @@ const App = () => {
         <div className="daysCounter">
           <h6>
             {days <= 9 ? "0" : ""}
-            {days} / 80
+            {days} / {totalDays <= 9 ? "0" : ""}
+            {totalDays}
           </h6>
           <div className="imgs">
             <img src="./minus.png" alt="minus" onClick={removeDays} />
