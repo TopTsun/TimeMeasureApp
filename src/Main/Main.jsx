@@ -110,10 +110,20 @@ const App = () => {
     });
   };
 
+  const removeTotalDays = () => {
+    setTotalDays((prev) => {
+      if (prev - 1 < days) return prev;
+
+      const newDays = prev === 0 ? 0 : prev - 1;
+      localStorage.setItem("totalDays", +newDays);
+      return newDays;
+    });
+  };
+
   return (
     <>
       <div className="main">
-        <h2>{timer}</h2>
+        <h2 onDoubleClick={removeTotalDays}>{timer}</h2>
         <div className="daysCounter">
           <h6>
             {days <= 9 ? "0" : ""}
