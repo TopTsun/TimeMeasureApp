@@ -8,7 +8,7 @@ const App = () => {
     return h * 3600 + m * 60 + s;
   };
 
-  const initTime = "06:00:00";
+  const initTime = "04:00:00";
   const initSecs = getSecs(initTime);
 
   const intervalRef = useRef(null);
